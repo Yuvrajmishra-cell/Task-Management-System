@@ -90,6 +90,11 @@ export default function AuthIllustration({
         {/* Soft Arch Backdrop */}
         <div className="auth-ill-arch" />
 
+        <div className="auth-ill-progress" aria-hidden="true">
+          <span className="auth-ill-progress-label">3 of 5 done</span>
+          <span className="auth-ill-progress-track"><span /></span>
+        </div>
+
         {/* 3 Initials Avatars */}
         <div className="auth-ill-avatar auth-ill-avatar-1" aria-hidden="true">
           SC
@@ -141,6 +146,9 @@ export default function AuthIllustration({
                 <span className="auth-ill-row-title">Design system tokens</span>
               </div>
               <span className="auth-ill-status-badge badge-pending">Pending</span>
+              <span className="auth-ill-status-badge badge-completed auth-ill-swap-badge">
+                <span className="auth-ill-check" aria-hidden="true" />Completed
+              </span>
             </div>
 
             {/* Completed Row */}
