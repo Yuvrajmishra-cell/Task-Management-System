@@ -1,0 +1,163 @@
+/* ==========================================================================
+   TaskFlow Design System Tokens (Organizo Aesthetic)
+   ========================================================================== */
+
+:root {
+  /* --- Typography --- */
+  --font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+
+  --font-xs: 0.75rem;     /* 12px */
+  --font-sm: 0.875rem;    /* 14px */
+  --font-base: 0.9375rem; /* 15px */
+  --font-md: 1rem;        /* 16px */
+  --font-lg: 1.125rem;    /* 18px */
+  --font-xl: 1.25rem;     /* 20px */
+  --font-2xl: 1.5rem;     /* 24px */
+  --font-3xl: 1.875rem;   /* 30px */
+  --font-4xl: 2.25rem;    /* 36px */
+
+  --fw-normal: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-extrabold: 800;
+
+  --lh-tight: 1.25;
+  --lh-base: 1.5;
+  --lh-relaxed: 1.625;
+
+  /* --- Spacing Scale (Consistent 4/8/12/16/20/24/32/40/48/64) --- */
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+
+  /* --- Brand / Accent: Organizo Soft Yellow --- */
+  --primary: #F8DC5C;
+  --primary-hover: #F3D13C;
+  --primary-active: #E6C42A;
+  --primary-light: #FDF6D3;
+  --primary-tint: #FDF6D3;
+  --primary-border: #E8CF4F;
+  --primary-text: #1F1B16;       /* DARK text on yellow - NEVER white */
+  --text-on-primary: #1F1B16;
+
+  /* Explicit yellow naming aliases */
+  --brand-yellow: #F8DC5C;
+  --brand-yellow-hover: #F3D13C;
+  --brand-yellow-tint: #FDF6D3;
+  --brand-yellow-dark: #1F1B16;
+
+  /* --- Neutrals & Surfaces: Warm Cream & Crisp White --- */
+  --bg-page: #F4EFEA;            /* Warm cream page background */
+  --bg-surface: #FFFFFF;         /* White cards & surfaces */
+  --bg-subtle: #ECE6DF;          /* Light warm neutral */
+  --bg-muted: #E2DAD1;           /* Muted warm border/fill */
+
+  /* --- Text Colors --- */
+  --text-primary: #1F1B16;       /* Near-black primary */
+  --text-secondary: #68625B;     /* Warm gray secondary */
+  --text-muted: #9E968D;         /* Muted warm gray */
+  --text-inverse: #1F1B16;       /* Default inverse for yellow surfaces */
+  --text-white: #FFFFFF;         /* White text for dark/danger badges */
+
+  /* --- Borders --- */
+  --border-subtle: rgba(31, 27, 22, 0.05);
+  --border-default: rgba(31, 27, 22, 0.12);
+  --border-strong: rgba(31, 27, 22, 0.22);
+  --border-card: rgba(0, 0, 0, 0.04);
+  --border-focus: #1F1B16;
+
+  /* --- Focus Visible Rings (>= 3:1 contrast on cream #F4EFEA and white) --- */
+  --primary-focus: rgba(31, 27, 22, 0.25);
+  --focus-ring: 0 0 0 2.5px #1F1B16;
+  --focus-ring-offset: 0 0 0 2px #FFFFFF, 0 0 0 4px #1F1B16;
+
+  /* --- Radius Scale (12 / 16 / 20 / pill) --- */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px;             /* 12px */
+  --radius-lg: 16px;             /* 16px */
+  --radius-xl: 20px;             /* 20px */
+  --radius-card: 20px;           /* 20px for cards */
+  --radius-2xl: 20px;
+  --radius-full: 9999px;         /* pill */
+  --radius-pill: 9999px;         /* pill */
+
+  /* --- Status Colors (Unchanged meaning, Pending clearly amber/orange) --- */
+  /* Pending - Vibrant Orange/Amber (clearly distinguished from brand yellow) */
+  --status-pending-bg: #FFF7ED;
+  --status-pending-text: #C2410C;
+  --status-pending-border: #FED7AA;
+  --status-pending-dot: #EA580C;
+
+  /* In Progress - Blue */
+  --status-progress-bg: #EFF6FF;
+  --status-progress-text: #1D4ED8;
+  --status-progress-border: #BFDBFE;
+  --status-progress-dot: #3B82F6;
+
+  /* Completed - Green */
+  --status-completed-bg: #F0FDF4;
+  --status-completed-text: #15803D;
+  --status-completed-border: #BBF7D0;
+  --status-completed-dot: #16A34A;
+
+  /* --- Semantic / Feedback Colors --- */
+  --danger: #DC2626;
+  --danger-hover: #B91C1C;
+  --danger-light: #FEF2F2;
+  --danger-border: #FECACA;
+  --danger-text: #991B1B;
+  --danger-focus: rgba(220, 38, 38, 0.2);
+
+  --error-bg: var(--danger-light);
+  --error-text: var(--danger-text);
+  --error-border: var(--danger-border);
+
+  --success: #16A34A;
+  --success-hover: #15803D;
+  --success-light: #F0FDF4;
+  --success-border: #BBF7D0;
+  --success-bg: var(--success-light);
+  --success-text: #166534;
+
+  --warning: #EA580C;
+  --warning-hover: #C2410C;
+  --warning-light: #FFF7ED;
+  --warning-border: #FED7AA;
+  --warning-text: #9A3412;
+
+  --info: #2563EB;
+  --info-hover: #1D4ED8;
+  --info-light: #EFF6FF;
+  --info-border: #BFDBFE;
+  --info-text: #1E40AF;
+
+  /* --- Elevation & Shadows (Very soft shadows) --- */
+  --shadow-xs: 0 1px 2px 0 rgba(31, 27, 22, 0.03);
+  --shadow-sm: 0 2px 4px 0 rgba(31, 27, 22, 0.04);
+  --shadow-card: 0 2px 8px 0 rgba(31, 27, 22, 0.04), 0 1px 2px 0 rgba(31, 27, 22, 0.02);
+  --shadow-md: 0 4px 12px 0 rgba(31, 27, 22, 0.05);
+  --shadow-lg: 0 10px 24px -4px rgba(31, 27, 22, 0.07);
+  --shadow-xl: 0 20px 30px -8px rgba(31, 27, 22, 0.09);
+
+  /* --- Transitions --- */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* --- Stacking Context (Z-Index) --- */
+  --z-base: 1;
+  --z-dropdown: 50;
+  --z-sticky: 100;
+  --z-backdrop: 900;
+  --z-modal: 1000;
+  --z-toast: 1100;
+}
