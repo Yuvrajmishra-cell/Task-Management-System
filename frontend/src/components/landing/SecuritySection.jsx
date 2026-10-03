@@ -1,6 +1,8 @@
 import { Shield, Key, Lock, AlertOctagon } from "lucide-react";
+import { useReveal } from "../../hooks/useReveal";
 
 function SecuritySection() {
+  const securityReveal = useReveal({ staggerChildren: true });
   const securityPillars = [
     {
       icon: <Shield size={24} className="security-icon" />,
@@ -37,9 +39,9 @@ function SecuritySection() {
           </p>
         </div>
 
-        <div className="security-grid">
+        <div className="security-grid reveal-stagger" ref={securityReveal.ref}>
           {securityPillars.map((pillar) => (
-            <div key={pillar.title} className="security-card">
+            <div key={pillar.title} className="security-card reveal-item">
               {pillar.icon}
               <h3 className="security-card-title">{pillar.title}</h3>
               <p className="security-card-desc">{pillar.desc}</p>

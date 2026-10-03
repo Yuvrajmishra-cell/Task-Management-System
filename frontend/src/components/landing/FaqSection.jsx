@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { useReveal } from "../../hooks/useReveal";
 
 function FaqSection() {
   const [openIndex, setOpenIndex] = useState(0);
+  const faqReveal = useReveal({ staggerChildren: true });
 
   const faqs = [
     {
@@ -44,15 +46,16 @@ function FaqSection() {
           </p>
         </div>
 
-        <div className="faq-container">
+        <div className="faq-container reveal-stagger" ref={faqReveal.ref}>
           {faqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
             const answerId = `faq-answer-${idx}`;
 
             return (
-              <div key={faq.q} className="faq-item">
+              <div key={faq.q} className="faq-item reveal-item">
                 <button
                   type="button"
+                  id={`faq-trigger-${idx}`}
                   className="faq-trigger"
                   onClick={() => toggle(idx)}
                   aria-expanded={isOpen}
@@ -66,11 +69,17 @@ function FaqSection() {
                   />
                 </button>
 
-                {isOpen && (
-                  <div id={answerId} className="faq-answer">
-                    {faq.a}
+                <div
+                  id={answerId}
+                  className={`faq-answer-panel ${isOpen ? "open" : ""}`}
+                  role="region"
+                  aria-labelledby={`faq-trigger-${idx}`}
+                  aria-hidden={!isOpen}
+                >
+                  <div className="faq-answer-inner">
+                    <div className="faq-answer">{faq.a}</div>
                   </div>
-                )}
+                </div>
               </div>
             );
           })}

@@ -1,4 +1,7 @@
+import { useReveal } from "../../hooks/useReveal";
+
 function HowItWorksSection() {
+  const stepsReveal = useReveal({ staggerChildren: true });
   const steps = [
     {
       number: "01",
@@ -30,9 +33,9 @@ function HowItWorksSection() {
           </p>
         </div>
 
-        <div className="steps-container">
+        <div className="steps-container reveal-stagger" ref={stepsReveal.ref}>
           {steps.map((step) => (
-            <div key={step.number} className="step-card">
+            <div key={step.number} className="step-card reveal-item">
               <div className="step-badge">{step.number}</div>
               <h3 className="step-title">{step.title}</h3>
               <p className="step-desc">{step.desc}</p>

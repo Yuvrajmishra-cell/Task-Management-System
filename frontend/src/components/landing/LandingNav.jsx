@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { CheckSquare, Menu, X, ArrowRight, LayoutDashboard } from "lucide-react";
@@ -7,11 +7,26 @@ import { Button } from "../ui";
 function LandingNav() {
   const { token, user } = useAuth();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => setScrolled(window.scrollY > 8));
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", update);
+    };
+  }, []);
 
   const closeMobile = () => setMobileOpen(false);
 
   return (
-    <header className="landing-nav-wrapper">
+    <header className={`landing-nav-wrapper ${scrolled ? "scrolled" : ""}`}>
       <div className="landing-container">
         <nav className="landing-nav" aria-label="Main Navigation">
           {/* Brand Logo */}
@@ -65,10 +80,8 @@ function LandingNav() {
               </Link>
             ) : (
               <>
-                <Link to="/login" className="btn-ghost">
-                  <Button variant="ghost" size="sm">
-                    Login
-                  </Button>
+                <Link to="/login" className="landing-login-link">
+                  Login
                 </Link>
                 <Link to="/register">
                   <Button

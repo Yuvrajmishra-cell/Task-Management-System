@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Calendar as CalendarIcon,
   CheckCircle2,
@@ -9,6 +9,31 @@ import {
   ChevronRight,
   TrendingUp,
 } from "lucide-react";
+import { useReveal } from "../../hooks/useReveal";
+
+function CountUp({ value, active }) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!active) return undefined;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setCount(value);
+      return undefined;
+    }
+
+    let frame = 0;
+    const start = performance.now();
+    const tick = (now) => {
+      const progress = Math.min((now - start) / 900, 1);
+      setCount(Math.round(value * progress));
+      if (progress < 1) frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [active, value]);
+
+  return count;
+}
 
 /**
  * Faux dashboard preview widget composition for the Landing Page Hero.
@@ -19,6 +44,7 @@ import {
  * Labelled "Preview"
  */
 function HeroIllustration() {
+  const visualReveal = useReveal();
   // Calendar days for October 2026 (starting Thu = day 4 of week)
   // Weekday initials Mo, Tu, We, Th, Fr, Sa, Su
   const weekdays = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
@@ -56,7 +82,14 @@ function HeroIllustration() {
   const pendingStroke = (2 / 12) * circumference;   // ~37.7
 
   return (
-    <div className="faux-dashboard-container" role="img" aria-label="TaskFlow Dashboard Preview">
+    <div className="hero-visual" ref={visualReveal.ref} role="img" aria-label="TaskFlow dashboard preview with task assignments and status tracking">
+      <span className="hero-floating-chip hero-floating-chip-assigned" aria-hidden="true">
+        <CheckCircle2 size={16} />Task assigned
+      </span>
+      <span className="hero-floating-chip hero-floating-chip-updated" aria-hidden="true">
+        <TrendingUp size={16} />Status updated
+      </span>
+      <div className="faux-dashboard-container" aria-hidden="true">
       {/* Top Window Chrome */}
       <div className="faux-dashboard-chrome">
         <div className="faux-window-dots" aria-hidden="true">
@@ -81,19 +114,19 @@ function HeroIllustration() {
         {/* Top Summary Chips Row */}
         <div className="faux-stat-chips-row">
           <div className="faux-stat-chip">
-            <span className="faux-chip-num">12</span>
+            <span className="faux-chip-num"><CountUp value={12} active={visualReveal.isRevealed} /></span>
             <span className="faux-chip-label">Total</span>
           </div>
           <div className="faux-stat-chip">
-            <span className="faux-chip-num text-orange">2</span>
+            <span className="faux-chip-num text-orange"><CountUp value={2} active={visualReveal.isRevealed} /></span>
             <span className="faux-chip-label">Pending</span>
           </div>
           <div className="faux-stat-chip">
-            <span className="faux-chip-num text-blue">4</span>
+            <span className="faux-chip-num text-blue"><CountUp value={4} active={visualReveal.isRevealed} /></span>
             <span className="faux-chip-label">Active</span>
           </div>
           <div className="faux-stat-chip">
-            <span className="faux-chip-num text-green">6</span>
+            <span className="faux-chip-num text-green"><CountUp value={6} active={visualReveal.isRevealed} /></span>
             <span className="faux-chip-label">Done</span>
           </div>
         </div>
@@ -229,7 +262,7 @@ function HeroIllustration() {
                     cy="50"
                     r="36"
                     fill="none"
-                    stroke="#16a34a"
+                    stroke="#15803D"
                     strokeWidth="12"
                     strokeDasharray={`${completedStroke} ${circumference}`}
                     strokeDashoffset="0"
@@ -241,7 +274,7 @@ function HeroIllustration() {
                     cy="50"
                     r="36"
                     fill="none"
-                    stroke="#3b82f6"
+                    stroke="#1D4ED8"
                     strokeWidth="12"
                     strokeDasharray={`${progressStroke} ${circumference}`}
                     strokeDashoffset={-completedStroke}
@@ -253,7 +286,7 @@ function HeroIllustration() {
                     cy="50"
                     r="36"
                     fill="none"
-                    stroke="#ea580c"
+                    stroke="#EA580C"
                     strokeWidth="12"
                     strokeDasharray={`${pendingStroke} ${circumference}`}
                     strokeDashoffset={-(completedStroke + progressStroke)}
@@ -284,6 +317,7 @@ function HeroIllustration() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

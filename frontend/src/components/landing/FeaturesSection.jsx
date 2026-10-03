@@ -6,8 +6,10 @@ import {
   CalendarClock,
   KeyRound,
 } from "lucide-react";
+import { useReveal } from "../../hooks/useReveal";
 
 function FeaturesSection() {
+  const featuresReveal = useReveal({ staggerChildren: true });
   const features = [
     {
       icon: <ShieldCheck size={22} />,
@@ -54,9 +56,9 @@ function FeaturesSection() {
           </p>
         </div>
 
-        <div className="features-grid">
+        <div className="features-grid reveal-stagger" ref={featuresReveal.ref}>
           {features.map((feature) => (
-            <div key={feature.title} className="feature-card">
+            <div key={feature.title} className="feature-card reveal-item">
               <div className="feature-icon-box">{feature.icon}</div>
               <h3 className="feature-title">{feature.title}</h3>
               <p className="feature-desc">{feature.desc}</p>

@@ -2,13 +2,15 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { ArrowRight, LayoutDashboard } from "lucide-react";
 import { Button } from "../ui";
+import { useReveal } from "../../hooks/useReveal";
 
 function CtaSection() {
   const { token } = useAuth();
+  const ctaReveal = useReveal();
 
   return (
     <section className="landing-container" aria-labelledby="cta-heading">
-      <div className="cta-band">
+      <div className="cta-band reveal" ref={ctaReveal.ref}>
         <h2 id="cta-heading" className="cta-band-title">
           Ready to get your team on track?
         </h2>
@@ -16,12 +18,13 @@ function CtaSection() {
           Experience role-based project coordination that eliminates communication gaps, keeps deadlines visible, and drives daily progress.
         </p>
 
-        <div style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap" }}>
+        <div className="cta-actions">
           {token ? (
             <Link to="/dashboard">
               <Button
                 variant="secondary"
                 size="lg"
+                className="cta-primary"
                 leftIcon={<LayoutDashboard size={18} />}
               >
                 Open Dashboard
@@ -33,6 +36,7 @@ function CtaSection() {
                 <Button
                   variant="secondary"
                   size="lg"
+                  className="cta-primary"
                   rightIcon={<ArrowRight size={18} />}
                 >
                   Create Free Account
@@ -42,7 +46,7 @@ function CtaSection() {
                 <Button
                   variant="ghost"
                   size="lg"
-                  style={{ color: "#ffffff", borderColor: "rgba(255,255,255,0.3)" }}
+                  className="cta-secondary"
                 >
                   Sign In
                 </Button>

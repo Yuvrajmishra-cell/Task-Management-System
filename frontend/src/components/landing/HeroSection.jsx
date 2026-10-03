@@ -12,19 +12,26 @@ function HeroSection() {
       {/* Wave Background - Bottom Right */}
       <div className="hero-wave-bg" aria-hidden="true">
         <svg
-          viewBox="0 0 1440 720"
+          viewBox="0 0 1000 900"
           preserveAspectRatio="xMaxYMax slice"
           xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
         >
           <defs>
             <linearGradient id="wave-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#F8DC5C" stopOpacity="0.85" />
-              <stop offset="50%" stopColor="#F3D13C" stopOpacity="0.7" />
-              <stop offset="100%" stopColor="#ECE6DF" stopOpacity="0.55" />
+              <stop offset="0%" stopColor="#FDE047" />
+              <stop offset="55%" stopColor="#FACC15" />
+              <stop offset="100%" stopColor="#FBBF24" />
             </linearGradient>
           </defs>
           <path
-            d="M0,640 C220,590 380,500 580,430 C780,360 920,190 1120,160 C1260,140 1370,175 1440,215 L1440,720 L0,720 Z"
+            className="hero-wave-back"
+            d="M0,900 C105,890 150,790 270,745 C430,685 500,555 615,450 C680,350 680,205 760,165 C835,130 945,185 1000,250 L1000,900 Z"
+            fill="#FEF08A"
+          />
+          <path
+            className="hero-wave-front"
+            d="M0,900 C100,900 145,825 255,780 C415,715 480,610 560,495 C625,380 640,260 730,205 C820,160 930,190 1000,250 L1000,900 Z"
             fill="url(#wave-gradient)"
           />
         </svg>
@@ -92,10 +99,10 @@ function HeroSection() {
                 <Users size={16} /> <span>Role-based access</span>
               </li>
               <li className="trust-item">
-                <ShieldCheck size={16} /> <span>Secure account recovery</span>
+                <ShieldCheck size={16} /> <span>Secure recovery</span>
               </li>
               <li className="trust-item">
-                <Clock size={16} /> <span>Real-time status tracking</span>
+                <Clock size={16} /> <span>Status tracking</span>
               </li>
             </ul>
           </div>

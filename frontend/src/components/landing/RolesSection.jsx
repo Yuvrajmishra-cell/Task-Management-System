@@ -1,7 +1,9 @@
 import { CheckCircle2, ShieldCheck, UserCheck } from "lucide-react";
 import { Badge } from "../ui";
+import { useReveal } from "../../hooks/useReveal";
 
 function RolesSection() {
+  const rolesReveal = useReveal({ staggerChildren: true });
   const managerCapabilities = [
     "Create tasks with descriptions, deadlines, and assignees",
     "Browse complete organizational task backlog",
@@ -31,13 +33,13 @@ function RolesSection() {
           </p>
         </div>
 
-        <div className="roles-grid">
+        <div className="roles-grid reveal-stagger" ref={rolesReveal.ref}>
           {/* Manager Role Card */}
-          <div className="role-card manager-card">
+          <div className="role-card manager-card reveal-item">
             <div>
               <div className="role-header">
                 <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                  <ShieldCheck size={24} color="var(--primary)" />
+                  <ShieldCheck size={24} color="var(--gold-700)" />
                   <span className="role-name">Manager</span>
                 </div>
                 <Badge role="manager">Full Authority</Badge>
@@ -63,7 +65,7 @@ function RolesSection() {
           </div>
 
           {/* Employee Role Card */}
-          <div className="role-card employee-card">
+          <div className="role-card employee-card reveal-item">
             <div>
               <div className="role-header">
                 <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
