@@ -1,102 +1,48 @@
-import { CheckCircle2, ShieldCheck, UserCheck } from "lucide-react";
-import { Badge } from "../ui";
+import { Check, X } from "lucide-react";
 import { useReveal } from "../../hooks/useReveal";
 
-function RolesSection() {
-  const rolesReveal = useReveal({ staggerChildren: true });
-  const managerCapabilities = [
-    "Create tasks with descriptions, deadlines, and assignees",
-    "Browse complete organizational task backlog",
-    "Filter all tasks by status and target deadline",
-    "Full authority to delete any task from the system",
-    "Access to active employee directory for assignments",
-  ];
+const permissionRows = [
+  ["Create tasks", true, false],
+  ["Assign tasks to employees", true, false],
+  ["View all tasks", true, false],
+  ["Update status of assigned tasks", false, true],
+  ["Filter tasks by status and due date", true, true],
+  ["Delete any task", true, false],
+  ["Delete own completed tasks", false, true],
+  ["View other employees' tasks", true, false],
+];
 
-  const employeeCapabilities = [
-    "Dedicated view scoped strictly to own assigned tasks",
-    "Update workflow status (Pending → In Progress → Completed)",
-    "Filter personal assigned tasks by status & due date",
-    "Authorized to delete own tasks once status is 'Completed'",
-    "Protected boundaries: cannot view or alter other employees' tasks",
-  ];
+function Access({ allowed }) {
+  return <span className={`access-mark ${allowed ? "allowed" : "denied"}`} aria-label={allowed ? "Allowed" : "Not allowed"}>
+    {allowed ? <Check size={17} aria-hidden="true" /> : <X size={17} aria-hidden="true" />}
+  </span>;
+}
 
+export default function RolesSection() {
+  const { setNode: tableRef } = useReveal();
+  const { setNode: headingRef } = useReveal();
   return (
-    <section id="roles" className="landing-section" aria-labelledby="roles-heading">
+    <section id="roles" className="landing-section roles-section" aria-labelledby="roles-heading">
       <div className="landing-container">
-        <div className="section-title-wrap">
-          <div className="section-tag">Role Separation</div>
-          <h2 id="roles-heading" className="section-heading">
-            Purpose-built permissions for each role
-          </h2>
-          <p className="section-subtext">
-            Clear boundaries protect data integrity while empowering team members to focus on their assigned work.
-          </p>
+        <div className="section-title-wrap reveal" ref={headingRef}>
+          <p className="section-tag">Roles</p>
+          <h2 id="roles-heading" className="section-heading">Clear roles. Clear permissions.</h2>
+          <p className="section-subtext">Access is enforced by the API as well as the interface.</p>
         </div>
-
-        <div className="roles-grid reveal-stagger" ref={rolesReveal.ref}>
-          {/* Manager Role Card */}
-          <div className="role-card manager-card reveal-item">
-            <div>
-              <div className="role-header">
-                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                  <ShieldCheck size={24} color="var(--gold-700)" />
-                  <span className="role-name">Manager</span>
-                </div>
-                <Badge role="manager">Full Authority</Badge>
-              </div>
-
-              <p className="role-desc">
-                Project coordinators and team leads who assign tasks, monitor team-wide delivery, and maintain task backlogs.
-              </p>
-
-              <ul className="checklist">
-                {managerCapabilities.map((item) => (
-                  <li key={item} className="checklist-item">
-                    <CheckCircle2 size={16} className="checklist-icon" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div style={{ paddingTop: "1rem", borderTop: "1px solid var(--border-subtle)", fontSize: "0.8rem", color: "var(--text-muted)" }}>
-              * Manager accounts can be provisioned through secure backend administration.
-            </div>
-          </div>
-
-          {/* Employee Role Card */}
-          <div className="role-card employee-card reveal-item">
-            <div>
-              <div className="role-header">
-                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                  <UserCheck size={24} color="#0284c7" />
-                  <span className="role-name">Employee</span>
-                </div>
-                <Badge role="employee">Execution Focused</Badge>
-              </div>
-
-              <p className="role-desc">
-                Individual contributors who focus on their active workload, update task statuses, and clean up completed assignments.
-              </p>
-
-              <ul className="checklist">
-                {employeeCapabilities.map((item) => (
-                  <li key={item} className="checklist-item">
-                    <CheckCircle2 size={16} className="checklist-icon" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div style={{ paddingTop: "1rem", borderTop: "1px solid var(--border-subtle)", fontSize: "0.8rem", color: "var(--text-muted)" }}>
-              * Employees register freely via self-serve signup with mandatory security questions.
-            </div>
-          </div>
+        <div className="permission-table-wrap reveal" ref={tableRef}>
+          <table className="permission-table">
+            <thead><tr><th scope="col">Capability</th><th scope="col">Manager</th><th scope="col">Employee</th></tr></thead>
+            <tbody>{permissionRows.map(([name, manager, employee]) => (
+              <tr key={name}>
+                <th scope="row">{name}</th>
+                <td data-label="Manager"><Access allowed={manager} /></td>
+                <td data-label="Employee"><Access allowed={employee} /></td>
+              </tr>
+            ))}</tbody>
+          </table>
         </div>
+        <p className="roles-note">Employee accounts are self-registered. Manager accounts are provisioned through manager-only administration.</p>
       </div>
     </section>
   );
 }
-
-export default RolesSection;

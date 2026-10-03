@@ -1,68 +1,55 @@
 import {
+  Activity,
+  CalendarClock,
+  Filter,
+  KeyRound,
   ShieldCheck,
   UserCheck,
-  Activity,
-  Filter,
-  CalendarClock,
-  KeyRound,
 } from "lucide-react";
 import { useReveal } from "../../hooks/useReveal";
 
+const featureRows = [
+  { icon: <UserCheck size={24} />, title: "Task assignment", desc: "Managers create tasks with a description and due date, then assign them to a registered employee." },
+  { icon: <Activity size={24} />, title: "Status tracking", desc: "Employees update assigned tasks through Pending, In Progress, and Completed." },
+  { icon: <Filter size={24} />, title: "Smart filtering", desc: "Find work by its current status or a due-date cutoff." },
+];
+
+const supportingFeatures = [
+  [ShieldCheck, "Role-based access", "Manager and Employee permissions are enforced by protected API routes."],
+  [UserCheck, "Task assignment", "Managers select a registered employee when creating a task."],
+  [Activity, "Status tracking", "The task model supports Pending, In Progress, and Completed."],
+  [Filter, "Task filtering", "The task API accepts status and due-date filters."],
+  [CalendarClock, "Due dates", "Tasks require a due date, which can be used to filter upcoming work."],
+  [KeyRound, "Account recovery", "Users verify a security answer to receive a temporary password-reset token."],
+];
+
 function FeaturesSection() {
-  const featuresReveal = useReveal({ staggerChildren: true });
-  const features = [
-    {
-      icon: <ShieldCheck size={22} />,
-      title: "Role-Based Access",
-      desc: "Strict architectural separation between Manager and Employee roles, backed by cryptographic JWT tokens and controller-level security checks.",
-    },
-    {
-      icon: <UserCheck size={22} />,
-      title: "Task Assignment",
-      desc: "Managers can easily assign granular tasks with titles, comprehensive descriptions, and deadlines directly to active registered employees.",
-    },
-    {
-      icon: <Activity size={22} />,
-      title: "Status Tracking",
-      desc: "Real-time task progression across Pending, In Progress, and Completed states. Employees effortlessly keep their work current.",
-    },
-    {
-      icon: <Filter size={22} />,
-      title: "Smart Filtering",
-      desc: "Zero clutter: filter your task backlog instantly by lifecycle status and target completion date directly through the API.",
-    },
-    {
-      icon: <CalendarClock size={22} />,
-      title: "Due-Date Tracking",
-      desc: "Never miss a deadline. Automated date indexing flags upcoming milestones so teams always prioritize time-critical tasks.",
-    },
-    {
-      icon: <KeyRound size={22} />,
-      title: "Secure Account Recovery",
-      desc: "3-step identity verification using hashed security questions, short-lived crypto tokens, and brute-force attempt lockout protections.",
-    },
-  ];
-
+  const { setNode: headingRef } = useReveal({ staggerChildren: true });
+  const { setNode: rowsRef } = useReveal({ staggerChildren: true });
+  const { setNode: supportingRef } = useReveal({ staggerChildren: true });
   return (
-    <section id="features" className="landing-section" aria-labelledby="features-heading">
+    <section id="features" className="landing-section features-section" aria-labelledby="features-heading">
       <div className="landing-container">
-        <div className="section-title-wrap">
-          <div className="section-tag">Key Capabilities</div>
-          <h2 id="features-heading" className="section-heading">
-            Engineered for clarity, accountability, and speed
-          </h2>
-          <p className="section-subtext">
-            TaskFlow combines intuitive team collaboration with rigorous backend security standards.
-          </p>
+        <div className="section-title-wrap reveal" ref={headingRef}>
+          <p className="section-tag">What it does</p>
+          <h2 id="features-heading" className="section-heading">One place for work to move forward.</h2>
+          <p className="section-subtext">TaskFlow keeps the everyday handoff between managers and employees clear.</p>
         </div>
-
-        <div className="features-grid reveal-stagger" ref={featuresReveal.ref}>
-          {features.map((feature) => (
-            <div key={feature.title} className="feature-card reveal-item">
-              <div className="feature-icon-box">{feature.icon}</div>
-              <h3 className="feature-title">{feature.title}</h3>
-              <p className="feature-desc">{feature.desc}</p>
-            </div>
+        <div className="feature-rows reveal-stagger" ref={rowsRef}>
+          {featureRows.map((feature, index) => (
+            <article className="feature-row reveal-item" key={feature.title}>
+              <span className="feature-row-number">0{index + 1}</span>
+              <span className="feature-icon-box">{feature.icon}</span>
+              <div><h3>{feature.title}</h3><p>{feature.desc}</p></div>
+            </article>
+          ))}
+        </div>
+        <div className="supporting-features reveal-stagger" ref={supportingRef}>
+          {supportingFeatures.map(([Icon, title, desc]) => (
+            <article className="supporting-feature reveal-item" key={title}>
+              <span className="feature-icon-box"><Icon size={20} /></span>
+              <div><h3>{title}</h3><p>{desc}</p></div>
+            </article>
           ))}
         </div>
       </div>

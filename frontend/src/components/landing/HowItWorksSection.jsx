@@ -1,45 +1,30 @@
 import { useReveal } from "../../hooks/useReveal";
 
 function HowItWorksSection() {
-  const stepsReveal = useReveal({ staggerChildren: true });
+  const { setNode: stepsRef } = useReveal({ staggerChildren: true });
+  const { setNode: headingRef } = useReveal();
   const steps = [
-    {
-      number: "01",
-      title: "Manager creates & assigns",
-      desc: "Managers define task objectives, set deadline dates, and select a registered employee from the team roster to take ownership.",
-    },
-    {
-      number: "02",
-      title: "Employee updates status",
-      desc: "Assigned employees review incoming work, move status from Pending to In Progress, and mark it Completed when deliverables finish.",
-    },
-    {
-      number: "03",
-      title: "Completed tasks get cleaned up",
-      desc: "Managers can delete any obsolete tasks. Employees can safely clean up tasks assigned to them once status reaches Completed.",
-    },
+    { number: "01", title: "Assign", desc: "A manager creates a task with a description and due date, then assigns it to an employee." },
+    { number: "02", title: "Update", desc: "The assigned employee moves work from Pending to In Progress as they begin." },
+    { number: "03", title: "Complete", desc: "When the work is done, the employee marks the task Completed." },
+    { number: "04", title: "Clean up", desc: "Managers can delete any task. Employees can delete only their own completed tasks." },
   ];
 
   return (
     <section id="how-it-works" className="landing-section bg-indigo-light" aria-labelledby="hiw-heading">
       <div className="landing-container">
-        <div className="section-title-wrap">
-          <div className="section-tag">Workflow</div>
-          <h2 id="hiw-heading" className="section-heading">
-            Simple 3-step operational flow
-          </h2>
-          <p className="section-subtext">
-            No convoluted hierarchies or redundant steps — just direct project execution.
-          </p>
+        <div className="section-title-wrap reveal" ref={headingRef}>
+          <p className="section-tag">How it works</p>
+          <h2 id="hiw-heading" className="section-heading">Four moves. One clear handoff.</h2>
+          <p className="section-subtext">A simple path from task assignment to finished work.</p>
         </div>
-
-        <div className="steps-container reveal-stagger" ref={stepsReveal.ref}>
+        <div className="steps-container reveal-stagger" ref={stepsRef}>
           {steps.map((step) => (
-            <div key={step.number} className="step-card reveal-item">
+            <article key={step.number} className="step-card reveal-item">
               <div className="step-badge">{step.number}</div>
               <h3 className="step-title">{step.title}</h3>
               <p className="step-desc">{step.desc}</p>
-            </div>
+            </article>
           ))}
         </div>
       </div>

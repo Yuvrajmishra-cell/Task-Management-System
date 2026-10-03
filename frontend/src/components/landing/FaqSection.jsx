@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { Plus } from "lucide-react";
 import { useReveal } from "../../hooks/useReveal";
 
 function FaqSection() {
   const [openIndex, setOpenIndex] = useState(0);
-  const faqReveal = useReveal({ staggerChildren: true });
+  const { setNode: faqRef } = useReveal({ staggerChildren: true });
+  const { setNode: headingRef } = useReveal();
 
   const faqs = [
     {
@@ -36,7 +37,7 @@ function FaqSection() {
   return (
     <section id="faq" className="landing-section" aria-labelledby="faq-heading">
       <div className="landing-container">
-        <div className="section-title-wrap">
+        <div className="section-title-wrap reveal" ref={headingRef}>
           <div className="section-tag">Frequently Asked Questions</div>
           <h2 id="faq-heading" className="section-heading">
             Got questions? We have answers.
@@ -46,7 +47,7 @@ function FaqSection() {
           </p>
         </div>
 
-        <div className="faq-container reveal-stagger" ref={faqReveal.ref}>
+        <div className="faq-container reveal-stagger" ref={faqRef}>
           {faqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
             const answerId = `faq-answer-${idx}`;
@@ -62,7 +63,7 @@ function FaqSection() {
                   aria-controls={answerId}
                 >
                   <span>{faq.q}</span>
-                  <ChevronDown
+                  <Plus
                     size={18}
                     className={`faq-chevron ${isOpen ? "expanded" : ""}`}
                     aria-hidden="true"

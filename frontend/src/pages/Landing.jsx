@@ -1,6 +1,10 @@
 import LandingNav from "../components/landing/LandingNav";
+import CapabilityMarquee from "../components/landing/CapabilityMarquee";
 import HeroSection from "../components/landing/HeroSection";
 import FeaturesSection from "../components/landing/FeaturesSection";
+import ProblemSection from "../components/landing/ProblemSection";
+import StatsSection from "../components/landing/StatsSection";
+import FitSection from "../components/landing/FitSection";
 import HowItWorksSection from "../components/landing/HowItWorksSection";
 import RolesSection from "../components/landing/RolesSection";
 import SecuritySection from "../components/landing/SecuritySection";
@@ -22,14 +26,22 @@ function Landing() {
         {/* 2. Hero Section with Faux Dashboard Preview */}
         <HeroSection />
 
+        <CapabilityMarquee />
+
         {/* 3. Features Grid */}
         <FeaturesSection />
+
+        <ProblemSection />
+
+        <StatsSection />
 
         {/* 4. How It Works Steps */}
         <HowItWorksSection />
 
         {/* 5. Roles Separation */}
         <RolesSection />
+
+        <FitSection />
 
         {/* 6. Security Pillars */}
         <SecuritySection />

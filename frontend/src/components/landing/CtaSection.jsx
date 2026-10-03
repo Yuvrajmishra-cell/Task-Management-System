@@ -6,13 +6,13 @@ import { useReveal } from "../../hooks/useReveal";
 
 function CtaSection() {
   const { token } = useAuth();
-  const ctaReveal = useReveal();
+  const { setNode: ctaRef } = useReveal();
 
   return (
     <section className="landing-container" aria-labelledby="cta-heading">
-      <div className="cta-band reveal" ref={ctaReveal.ref}>
+      <div className="cta-band reveal" ref={ctaRef}>
         <h2 id="cta-heading" className="cta-band-title">
-          Ready to get your team on track?
+          {"Ready to get your team on track?".split(" ").map((word, index) => <span className="cta-word" key={`${word}-${index}`}>{word}</span>)}
         </h2>
         <p className="cta-band-subtext">
           Experience role-based project coordination that eliminates communication gaps, keeps deadlines visible, and drives daily progress.
@@ -26,6 +26,7 @@ function CtaSection() {
                 size="lg"
                 className="cta-primary"
                 leftIcon={<LayoutDashboard size={18} />}
+                aria-label="Open Dashboard"
               >
                 Open Dashboard
               </Button>
@@ -38,8 +39,9 @@ function CtaSection() {
                   size="lg"
                   className="cta-primary"
                   rightIcon={<ArrowRight size={18} />}
+                  aria-label="Create Free Account"
                 >
-                  Create Free Account
+                  <span className="landing-button-roll" aria-hidden="true"><span>Create Free Account</span><span>Create Free Account</span></span>
                 </Button>
               </Link>
               <Link to="/login">
@@ -47,8 +49,9 @@ function CtaSection() {
                   variant="ghost"
                   size="lg"
                   className="cta-secondary"
+                  aria-label="Sign In"
                 >
-                  Sign In
+                  <span className="landing-button-roll" aria-hidden="true"><span>Sign In</span><span>Sign In</span></span>
                 </Button>
               </Link>
             </>

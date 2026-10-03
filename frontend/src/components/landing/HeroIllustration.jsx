@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Calendar as CalendarIcon,
   CheckCircle2,
@@ -15,11 +15,7 @@ function CountUp({ value, active }) {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    if (!active) return undefined;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setCount(value);
-      return undefined;
-    }
+    if (!active || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
 
     let frame = 0;
     const start = performance.now();
@@ -32,7 +28,7 @@ function CountUp({ value, active }) {
     return () => cancelAnimationFrame(frame);
   }, [active, value]);
 
-  return count;
+  return active && window.matchMedia("(prefers-reduced-motion: reduce)").matches ? value : count;
 }
 
 /**
@@ -44,7 +40,7 @@ function CountUp({ value, active }) {
  * Labelled "Preview"
  */
 function HeroIllustration() {
-  const visualReveal = useReveal();
+  const { setNode: visualRef, isRevealed } = useReveal();
   // Calendar days for October 2026 (starting Thu = day 4 of week)
   // Weekday initials Mo, Tu, We, Th, Fr, Sa, Su
   const weekdays = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
@@ -82,7 +78,7 @@ function HeroIllustration() {
   const pendingStroke = (2 / 12) * circumference;   // ~37.7
 
   return (
-    <div className="hero-visual" ref={visualReveal.ref} role="img" aria-label="TaskFlow dashboard preview with task assignments and status tracking">
+    <div className="hero-visual" ref={visualRef} role="img" aria-label="TaskFlow dashboard preview with task assignments and status tracking">
       <span className="hero-floating-chip hero-floating-chip-assigned" aria-hidden="true">
         <CheckCircle2 size={16} />Task assigned
       </span>
@@ -114,19 +110,19 @@ function HeroIllustration() {
         {/* Top Summary Chips Row */}
         <div className="faux-stat-chips-row">
           <div className="faux-stat-chip">
-            <span className="faux-chip-num"><CountUp value={12} active={visualReveal.isRevealed} /></span>
+            <span className="faux-chip-num"><CountUp value={12} active={isRevealed} /></span>
             <span className="faux-chip-label">Total</span>
           </div>
           <div className="faux-stat-chip">
-            <span className="faux-chip-num text-orange"><CountUp value={2} active={visualReveal.isRevealed} /></span>
+            <span className="faux-chip-num text-orange"><CountUp value={2} active={isRevealed} /></span>
             <span className="faux-chip-label">Pending</span>
           </div>
           <div className="faux-stat-chip">
-            <span className="faux-chip-num text-blue"><CountUp value={4} active={visualReveal.isRevealed} /></span>
+            <span className="faux-chip-num text-blue"><CountUp value={4} active={isRevealed} /></span>
             <span className="faux-chip-label">Active</span>
           </div>
           <div className="faux-stat-chip">
-            <span className="faux-chip-num text-green"><CountUp value={6} active={visualReveal.isRevealed} /></span>
+            <span className="faux-chip-num text-green"><CountUp value={6} active={isRevealed} /></span>
             <span className="faux-chip-label">Done</span>
           </div>
         </div>

@@ -1,7 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export function useReveal({ staggerChildren = false, staggerMs = 70 } = {}) {
   const ref = useRef(null);
+  const setRef = useCallback((element) => {
+    ref.current = element;
+  }, []);
   const [isRevealed, setIsRevealed] = useState(false);
 
   useEffect(() => {
@@ -37,5 +40,5 @@ export function useReveal({ staggerChildren = false, staggerMs = 70 } = {}) {
     return () => observer.disconnect();
   }, [staggerChildren, staggerMs]);
 
-  return { ref, isRevealed };
+  return { setNode: setRef, isRevealed };
 }

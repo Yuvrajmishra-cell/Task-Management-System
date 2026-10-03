@@ -2,7 +2,8 @@ import { Shield, Key, Lock, AlertOctagon } from "lucide-react";
 import { useReveal } from "../../hooks/useReveal";
 
 function SecuritySection() {
-  const securityReveal = useReveal({ staggerChildren: true });
+  const { setNode: securityRef } = useReveal({ staggerChildren: true });
+  const { setNode: headingRef } = useReveal();
   const securityPillars = [
     {
       icon: <Shield size={24} className="security-icon" />,
@@ -22,14 +23,14 @@ function SecuritySection() {
     {
       icon: <AlertOctagon size={24} className="security-icon" />,
       title: "Brute-Force Lockout",
-      desc: "Dedicated Express rate limiters protect auth routes (5 req / 15 min), and accounts lock for 15 minutes after 5 failed answer attempts.",
+      desc: "Password recovery endpoints are rate-limited per IP: 5 requests per 15 minutes for lookup, 20 for answer verification, and 10 for reset. Accounts lock for 15 minutes after 5 failed answers.",
     },
   ];
 
   return (
     <section id="security" className="landing-section bg-navy-dark" aria-labelledby="security-heading">
       <div className="landing-container">
-        <div className="section-title-wrap">
+        <div className="section-title-wrap reveal" ref={headingRef}>
           <div className="section-tag">Security &amp; Privacy</div>
           <h2 id="security-heading" className="section-heading">
             Defense-in-depth architecture
@@ -39,7 +40,7 @@ function SecuritySection() {
           </p>
         </div>
 
-        <div className="security-grid reveal-stagger" ref={securityReveal.ref}>
+        <div className="security-grid reveal-stagger" ref={securityRef}>
           {securityPillars.map((pillar) => (
             <div key={pillar.title} className="security-card reveal-item">
               {pillar.icon}

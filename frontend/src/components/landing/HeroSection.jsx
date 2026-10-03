@@ -9,33 +9,7 @@ function HeroSection() {
 
   return (
     <section className="landing-hero" aria-labelledby="hero-heading">
-      {/* Wave Background - Bottom Right */}
-      <div className="hero-wave-bg" aria-hidden="true">
-        <svg
-          viewBox="0 0 1000 900"
-          preserveAspectRatio="xMaxYMax slice"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-        >
-          <defs>
-            <linearGradient id="wave-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#FDE047" />
-              <stop offset="55%" stopColor="#FACC15" />
-              <stop offset="100%" stopColor="#FBBF24" />
-            </linearGradient>
-          </defs>
-          <path
-            className="hero-wave-back"
-            d="M0,900 C105,890 150,790 270,745 C430,685 500,555 615,450 C680,350 680,205 760,165 C835,130 945,185 1000,250 L1000,900 Z"
-            fill="#FEF08A"
-          />
-          <path
-            className="hero-wave-front"
-            d="M0,900 C100,900 145,825 255,780 C415,715 480,610 560,495 C625,380 640,260 730,205 C820,160 930,190 1000,250 L1000,900 Z"
-            fill="url(#wave-gradient)"
-          />
-        </svg>
-      </div>
+      <div className="hero-glow" aria-hidden="true" />
 
       <div className="landing-container">
         <div className="hero-grid">
@@ -50,8 +24,8 @@ function HeroSection() {
 
             {/* Headline */}
             <h1 id="hero-heading" className="hero-headline">
-              Effortless task management,<br />
-              <span className="highlight-amber">for every team</span>
+              <span className="hero-line-mask"><span className="hero-headline-line">Effortless task management,</span></span>
+              <span className="hero-line-mask"><span className="hero-headline-line highlight-amber">for every team</span></span>
             </h1>
 
             {/* Subtext */}
@@ -68,6 +42,7 @@ function HeroSection() {
                     variant="primary"
                     className="hero-btn-primary"
                     leftIcon={<LayoutDashboard size={18} />}
+                    aria-label="Go to Dashboard"
                   >
                     Go to Dashboard
                   </Button>
@@ -80,13 +55,14 @@ function HeroSection() {
                       variant="primary"
                       className="hero-btn-primary"
                       rightIcon={<ArrowRight size={18} />}
+                      aria-label="Get Started Free"
                     >
-                      Get Started Free
+                      <span className="landing-button-roll" aria-hidden="true"><span>Get Started Free</span><span>Get Started Free</span></span>
                     </Button>
                   </Link>
                   <Link to="/login">
-                    <Button size="lg" variant="outline" className="hero-btn-secondary">
-                      Sign In
+                    <Button size="lg" variant="outline" className="hero-btn-secondary" aria-label="Sign In">
+                      <span className="landing-button-roll" aria-hidden="true"><span>Sign In</span><span>Sign In</span></span>
                     </Button>
                   </Link>
                 </>

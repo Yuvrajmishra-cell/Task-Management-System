@@ -88,8 +88,9 @@ function LandingNav() {
                     variant="primary"
                     size="sm"
                     rightIcon={<ArrowRight size={15} />}
+                    aria-label="Get Started"
                   >
-                    Get Started
+                    <span className="landing-button-roll" aria-hidden="true"><span>Get Started</span><span>Get Started</span></span>
                   </Button>
                 </Link>
               </>
