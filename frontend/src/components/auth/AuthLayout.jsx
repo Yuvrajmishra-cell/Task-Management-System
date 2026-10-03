@@ -11,14 +11,15 @@ import AuthIllustration from "./AuthIllustration";
  */
 export default function AuthLayout({
   children,
-  tagline = "Assign. Track. Complete.",
+  panelTitle = "Assign. Track. Complete.",
+  panelCopy = "A clearer view of every task, together.",
 }) {
   return (
     <div className="auth-page-shell">
       <main className="auth-floating-card">
         {/* Left: Inset Yellow Illustration Panel */}
-        <aside className="auth-card-illustration-pane" aria-label="TaskFlow visual preview">
-          <AuthIllustration tagline={tagline} />
+        <aside className="auth-card-illustration-pane" aria-hidden="true">
+          <AuthIllustration title={panelTitle} supportingText={panelCopy} />
         </aside>
 
         {/* Right: Form Pane */}

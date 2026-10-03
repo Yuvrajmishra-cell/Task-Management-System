@@ -1,171 +1,90 @@
 import React from "react";
 import { CheckSquare } from "lucide-react";
 
-/**
- * Single concentric ring element: 3 concentric circles + center dot
- */
-function ConcentricRing({ cx, cy }) {
-  return (
-    <g transform={`translate(${cx}, ${cy})`}>
-      <circle cx="14" cy="14" r="13" fill="none" stroke="#1F1B16" strokeWidth="1.5" opacity="0.2" />
-      <circle cx="14" cy="14" r="8.5" fill="none" stroke="#1F1B16" strokeWidth="1.5" opacity="0.2" />
-      <circle cx="14" cy="14" r="4.2" fill="none" stroke="#1F1B16" strokeWidth="1.5" opacity="0.22" />
-      <circle cx="14" cy="14" r="1.5" fill="#1F1B16" opacity="0.28" />
-    </g>
-  );
-}
-
-/**
- * Top-left decoration: 4 rows x 3 columns of concentric rings
- */
-function TopLeftRings() {
-  const cols = 3;
-  const rows = 4;
-  const spacing = 32;
-  return (
-    <svg
-      className="auth-ill-rings auth-ill-rings-tl"
-      width={cols * spacing + 12}
-      height={rows * spacing + 12}
-      viewBox={`0 0 ${cols * spacing + 12} ${rows * spacing + 12}`}
-      fill="none"
-      aria-hidden="true"
-    >
-      {Array.from({ length: rows }).map((_, r) =>
-        Array.from({ length: cols }).map((_, c) => (
-          <ConcentricRing key={`tl-${r}-${c}`} cx={c * spacing + 4} cy={r * spacing + 4} />
-        ))
-      )}
-    </svg>
-  );
-}
-
-/**
- * Bottom-right decoration: staircase triangle (1, 2, 3, 4 rings)
- */
-function BottomRightRings() {
-  const spacing = 32;
-  return (
-    <svg
-      className="auth-ill-rings auth-ill-rings-br"
-      width={4 * spacing + 12}
-      height={4 * spacing + 12}
-      viewBox={`0 0 ${4 * spacing + 12} ${4 * spacing + 12}`}
-      fill="none"
-      aria-hidden="true"
-    >
-      <ConcentricRing cx={3 * spacing + 4} cy={0 * spacing + 4} />
-      <ConcentricRing cx={2 * spacing + 4} cy={1 * spacing + 4} />
-      <ConcentricRing cx={3 * spacing + 4} cy={1 * spacing + 4} />
-      <ConcentricRing cx={1 * spacing + 4} cy={2 * spacing + 4} />
-      <ConcentricRing cx={2 * spacing + 4} cy={2 * spacing + 4} />
-      <ConcentricRing cx={3 * spacing + 4} cy={2 * spacing + 4} />
-      <ConcentricRing cx={0 * spacing + 4} cy={3 * spacing + 4} />
-      <ConcentricRing cx={1 * spacing + 4} cy={3 * spacing + 4} />
-      <ConcentricRing cx={2 * spacing + 4} cy={3 * spacing + 4} />
-      <ConcentricRing cx={3 * spacing + 4} cy={3 * spacing + 4} />
-    </svg>
-  );
-}
-
 export default function AuthIllustration({
-  tagline = "Assign. Track. Complete.",
+  title = "Assign. Track. Complete.",
+  supportingText = "A clearer view of every task, together.",
 }) {
   return (
     <div className="auth-ill-panel" aria-hidden="true">
-      {/* Corner Concentric Ring Decorations (dark at ~20% opacity) */}
-      <TopLeftRings />
-      <BottomRightRings />
-
-      {/* Top Brand Logo */}
       <div className="auth-ill-header">
-        <div className="auth-ill-logo">
-          <CheckSquare size={20} strokeWidth={2.5} />
-        </div>
+        <span className="auth-ill-logo"><CheckSquare size={21} strokeWidth={2.5} /></span>
         <span className="auth-ill-brand">TaskFlow</span>
       </div>
+      <div className="auth-ill-message">
+        <h2>{title}</h2>
+        <p>{supportingText}</p>
+      </div>
 
-      {/* Centered Stage Illustration */}
-      <div className="auth-ill-center">
-        {/* Soft Arch Backdrop */}
-        <div className="auth-ill-arch" />
-
-        <div className="auth-ill-progress" aria-hidden="true">
-          <span className="auth-ill-progress-label">3 of 5 done</span>
-          <span className="auth-ill-progress-track"><span /></span>
-        </div>
-
-        {/* 3 Initials Avatars */}
-        <div className="auth-ill-avatar auth-ill-avatar-1" aria-hidden="true">
-          SC
-        </div>
-        <div className="auth-ill-avatar auth-ill-avatar-2" aria-hidden="true">
-          MV
-        </div>
-        <div className="auth-ill-avatar auth-ill-avatar-3" aria-hidden="true">
-          JT
-        </div>
-
-        {/* Sparkle Accents */}
-        <svg
-          className="auth-ill-sparkle auth-ill-sparkle-1"
-          width="18"
-          height="18"
-          viewBox="0 0 24 24"
-          fill="#1F1B16"
-          aria-hidden="true"
-        >
-          <path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z" opacity="0.25" />
-        </svg>
-        <svg
-          className="auth-ill-sparkle auth-ill-sparkle-2"
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="#1F1B16"
-          aria-hidden="true"
-        >
-          <path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z" opacity="0.2" />
+      <div className="auth-ill-scene">
+        <svg className="auth-ill-tree" viewBox="0 0 440 350" fill="none">
+          <defs>
+          <linearGradient id="treeTrunk" x1="84" y1="205" x2="112" y2="340" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#CA8A04" /><stop offset="1" stopColor="#92400E" />
+          </linearGradient>
+            <linearGradient id="treeCanopy" x1="24" y1="46" x2="184" y2="200" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#FBBF24" /><stop offset=".58" stopColor="#E99A16" /><stop offset="1" stopColor="#D97706" />
+            </linearGradient>
+            <linearGradient id="treeShade" x1="112" y1="124" x2="190" y2="170" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#92400E" stopOpacity="0" /><stop offset="1" stopColor="#92400E" stopOpacity=".26" />
+            </linearGradient>
+            <linearGradient id="treeHighlight" x1="35" y1="38" x2="84" y2="146" gradientUnits="userSpaceOnUse">
+              <stop stopColor="white" stopOpacity=".52" /><stop offset="1" stopColor="white" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          <ellipse cx="95" cy="331" rx="112" ry="13" fill="#854D0E" opacity=".2" />
+          <path d="M77 204Q77 194 87 194h16q10 0 10 10v103q0 10 11 16l5 3v5H61v-5l5-3q11-6 11-16V204Z" fill="url(#treeTrunk)" />
+          <g className="auth-ill-canopy">
+            <path d="M95 18c31 0 48 19 48 50 0 25 15 42 26 70 18 48-13 90-74 98-61-8-92-50-74-98 11-28 26-45 26-70 0-31 17-50 48-50Z" fill="url(#treeCanopy)" />
+            <path d="M95 18c31 0 48 19 48 50 0 25 15 42 26 70 18 48-13 90-74 98 27-20 37-50 32-78-4-25-20-42-21-73-1-24-5-47-11-67Z" fill="url(#treeShade)" />
+            <path d="M31 136c-9-36 1-72 26-94 12-11 26-17 38-18-19 20-23 47-18 72 5 26 18 45 35 58-29 6-58-1-74-18-4-4-6-8-7-13Z" fill="url(#treeHighlight)" />
+          </g>
         </svg>
 
-        {/* Mini Task Card */}
+        <svg className="auth-ill-bird" viewBox="0 0 64 46" fill="none" aria-hidden="true">
+          <path d="M2 38c12-11 20-21 31-34l9 27L2 38Z" fill="#D97706" />
+          <path d="M33 4 62 20 42 31 33 4Z" fill="#A16207" />
+          <path d="m33 8 9 23-25 2L33 8Z" fill="#FEF3C7" />
+          <path d="M1 44c10-5 18-7 27-8" stroke="#A16207" strokeWidth="1.5" strokeLinecap="round" strokeDasharray="1 5" />
+        </svg>
+
+        <div className="auth-ill-avatar auth-ill-avatar-1">SC</div>
+        <div className="auth-ill-avatar auth-ill-avatar-2">MV</div>
+        <div className="auth-ill-avatar auth-ill-avatar-3">JT</div>
+
         <div className="auth-ill-task-card">
           <div className="auth-ill-card-top">
-            <div className="auth-ill-card-title-wrap">
-              <CheckSquare size={14} strokeWidth={2.5} className="auth-ill-card-icon" />
-              <span className="auth-ill-card-title">Sprint Overview</span>
-            </div>
+            <div className="auth-ill-card-title-wrap"><CheckSquare size={15} /><span>Sprint</span></div>
             <span className="auth-ill-card-pill">Active</span>
           </div>
-
           <div className="auth-ill-card-rows">
-            {/* Pending Row */}
             <div className="auth-ill-row auth-ill-row-pending">
-              <div className="auth-ill-row-left">
-                <span className="auth-ill-status-dot status-dot-pending" />
-                <span className="auth-ill-row-title">Design system tokens</span>
-              </div>
+              <span className="auth-ill-row-title">Design schema</span>
               <span className="auth-ill-status-badge badge-pending">Pending</span>
-              <span className="auth-ill-status-badge badge-completed auth-ill-swap-badge">
-                <span className="auth-ill-check" aria-hidden="true" />Completed
-              </span>
+              <span className="auth-ill-status-badge badge-completed auth-ill-swap-badge"><i className="auth-ill-check" />Completed</span>
             </div>
-
-            {/* Completed Row */}
             <div className="auth-ill-row auth-ill-row-completed">
-              <div className="auth-ill-row-left">
-                <span className="auth-ill-status-dot status-dot-completed" />
-                <span className="auth-ill-row-title">API authentication</span>
-              </div>
+              <span className="auth-ill-row-title">API auth</span>
               <span className="auth-ill-status-badge badge-completed">Completed</span>
             </div>
           </div>
+          <div className="auth-ill-progress">
+            <span className="auth-ill-progress-label">3 of 5 done</span>
+            <span className="auth-ill-progress-track"><span /></span>
+          </div>
         </div>
+
+        <svg className="auth-ill-sparkle auth-ill-sparkle-1" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="m12 1 2.7 8.3L23 12l-8.3 2.7L12 23l-2.7-8.3L1 12l8.3-2.7L12 1Z" fill="#FFFBEB" />
+        </svg>
+        <svg className="auth-ill-sparkle auth-ill-sparkle-2" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="m12 1 2.7 8.3L23 12l-8.3 2.7L12 23l-2.7-8.3L1 12l8.3-2.7L12 1Z" fill="#FFFBEB" />
+        </svg>
       </div>
 
-      {/* Bottom Tagline */}
       <div className="auth-ill-footer">
-        <p className="auth-ill-tagline">{tagline}</p>
+        <p>{supportingText}</p>
+        <span>© 2026 TaskFlow</span>
       </div>
     </div>
   );

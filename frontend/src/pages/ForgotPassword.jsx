@@ -224,7 +224,7 @@ function ForgotPassword() {
   };
 
   return (
-    <AuthLayout>
+    <AuthLayout panelTitle="Let’s get you back in." panelCopy="Verify your account and get back on track.">
       {/* ══ SUCCESS SCREEN ══ */}
       {step === STEP.SUCCESS && (
         <div className="fp-success-card" role="region" aria-label="Password Reset Success">

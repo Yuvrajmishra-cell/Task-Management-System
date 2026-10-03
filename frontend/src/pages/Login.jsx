@@ -67,7 +67,7 @@ function Login() {
   };
 
   return (
-    <AuthLayout>
+    <AuthLayout panelTitle="Assign. Track. Complete." panelCopy="Sign in and pick up where your team left off.">
       <div className="auth-form-header">
         <h1 className="auth-form-title">Welcome back</h1>
         <p className="auth-form-subtitle">

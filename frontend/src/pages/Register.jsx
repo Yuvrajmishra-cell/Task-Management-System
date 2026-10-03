@@ -128,7 +128,7 @@ function Register() {
   };
 
   return (
-    <AuthLayout>
+    <AuthLayout panelTitle="Join your team on TaskFlow." panelCopy="Tasks and teammates, all in one clear view.">
       <div className="auth-form-header">
         <h1 className="auth-form-title">Create an account</h1>
         <p className="auth-form-subtitle">
